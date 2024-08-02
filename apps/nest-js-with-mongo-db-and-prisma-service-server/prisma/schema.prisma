@@ -1,0 +1,501 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  accountVerification String?
+  bio                 String?
+  blocked             String?
+  candidateProfiles   VoteEventCandidate[]
+  comments            Comment[]
+  createdAt           DateTime             @default(now())
+  dateCreated         DateTime?
+  deviceInfos         DeviceInfo[]
+  devices             EnumUserDevices[]
+  dob                 DateTime?
+  email               String?              @unique
+  enterpriseLocation  String?
+  enterpriseName      String?
+  eventVotes          Vote?                @relation(fields: [eventVotesId], references: [id])
+  eventVotesId        String?              @db.ObjectId
+  events              Event[]
+  firstName           String?
+  groupTickets        Ticket[]             @relation(name: "groupTickets", fields: [groupTicketsIds], references: [id])
+  groupTicketsIds     String[]             @db.ObjectId
+  id                  String               @id @default(auto()) @map("_id") @db.ObjectId
+  isAccountActive     Boolean?
+  isAdmin             Boolean?
+  isAppleAuth         Boolean?
+  isBlocked           Boolean?
+  isEmailVerified     Boolean?
+  isGoogleAuth        Boolean?
+  isPhoneVerified     Boolean?
+  isVerified          Boolean?
+  language            String?
+  lastName            String?
+  likes               Like[]
+  locations           Location[]
+  mediaItems          Media[]
+  name                String?
+  notifications       Notification[]
+  otp                 String?
+  password            String
+  passwordhash        String?
+  phone               String?
+  polls               Poll[]
+  posts               Post[]
+  receivedMessages    Message[]            @relation(name: "receivedMessages")
+  reports             Report[]
+  roles               Json
+  sentMessages        Message[]            @relation(name: "sender")
+  shares              Share[]
+  ticketCanvasItems   TicketCanvas[]
+  tickets             Ticket[]             @relation(name: "boughtBy")
+  updatedAt           DateTime             @updatedAt
+  username            String               @unique
+  voteEvents          VoteEvent[]
+}
+
+model Polling {
+  createdAt   DateTime              @default(now())
+  dateCreated DateTime?
+  endDate     DateTime?
+  id          String                @id @default(auto()) @map("_id") @db.ObjectId
+  isActive    Boolean?
+  meta        String?
+  pollOptions PollOption[]
+  post        Post?                 @relation(fields: [postId], references: [id])
+  postId      String?               @db.ObjectId
+  startDate   DateTime?
+  typeField   EnumPollingTypeField?
+  updatedAt   DateTime              @updatedAt
+}
+
+model Post {
+  comments        Comment[]
+  createdAt       DateTime                 @default(now())
+  date            DateTime?
+  hashtags        String?
+  id              String                   @id @default(auto()) @map("_id") @db.ObjectId
+  isBlocked       Boolean?
+  isEvent         Boolean?
+  isMedia         Boolean?
+  isPolling       Boolean?
+  isPromoted      Boolean?
+  isVoteEvent     Boolean?
+  likes           Like[]
+  linkedEvent     String?
+  linkedEventType EnumPostLinkedEventType?
+  location        Location?                @relation(fields: [locationId], references: [id])
+  locationId      String?                  @db.ObjectId
+  mediaItems      Media[]
+  mentioned       String?
+  pollings        Polling[]
+  postDescription String?
+  postType        String?
+  reports         Report[]
+  shares          Share[]
+  tagged          String?
+  updatedAt       DateTime                 @updatedAt
+  user            User?                    @relation(fields: [userId], references: [id])
+  userId          String?                  @db.ObjectId
+}
+
+model Event {
+  accumulated          Float?
+  balance              Float?
+  createdAt            DateTime                 @default(now())
+  dateCreated          DateTime?
+  eventBio             String?
+  eventDate            DateTime?
+  eventLink            String?
+  eventLocation        String?
+  eventName            String?
+  eventPriceType       EnumEventEventPriceType?
+  eventType            EnumEventEventType?
+  featuredImage        String?
+  galerry              String?
+  gallery              String?
+  id                   String                   @id @default(auto()) @map("_id") @db.ObjectId
+  isActive             Boolean?
+  isFeatured           Boolean?
+  isPrivate            Boolean?
+  isTicketAvailable    Boolean?
+  mediaItems           Media[]
+  organizer            User?                    @relation(fields: [events], references: [id])
+  events               String?                  @db.ObjectId
+  ticketAvailableCount String?
+  ticketCount          String?
+  ticketPackages       TicketPackage[]
+  tickets              Ticket[]
+  ticketsSold          String?
+  updatedAt            DateTime                 @updatedAt
+}
+
+model Ticket {
+  boughtBy         User?          @relation(name: "boughtBy", fields: [BoughtBy], references: [id])
+  BoughtBy         String?        @db.ObjectId
+  createdAt        DateTime       @default(now())
+  dateCreated      DateTime?
+  event            Event?         @relation(fields: [eventId], references: [id])
+  eventId          String?        @db.ObjectId
+  eventDateTime    DateTime?
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  isTicketActive   Boolean?
+  ticketOwners     User[]         @relation(name: "groupTickets", fields: [ticketOwnersIds], references: [id])
+  ticketOwnersIds  String[]       @db.ObjectId
+  ticketOwnersMeta Json?
+  ticketType       TicketPackage? @relation(fields: [tickets], references: [id])
+  tickets          String?        @db.ObjectId
+  updatedAt        DateTime       @updatedAt
+}
+
+model Comment {
+  commentContent String?
+  createdAt      DateTime             @default(now())
+  date           DateTime?
+  hashtags       EnumCommentHashtags?
+  id             String               @id @default(auto()) @map("_id") @db.ObjectId
+  isMedia        Boolean?
+  likes          Like[]
+  mediaItems     Media[]
+  meta           String?
+  metaType       EnumCommentMetaType?
+  post           Post?                @relation(fields: [postId], references: [id])
+  postId         String?              @db.ObjectId
+  reports        Report[]
+  shares         Share[]
+  tagged         String?
+  updatedAt      DateTime             @updatedAt
+  user           User?                @relation(fields: [userId], references: [id])
+  userId         String?              @db.ObjectId
+}
+
+model Location {
+  city        String?
+  country     String?
+  createdAt   DateTime              @default(now())
+  dateCreated DateTime?
+  id          String                @id @default(auto()) @map("_id") @db.ObjectId
+  lat         String?
+  lng         String?
+  meta        String?
+  metaType    EnumLocationMetaType?
+  place       String?
+  posts       Post[]
+  state       String?
+  updatedAt   DateTime              @updatedAt
+  user        User?                 @relation(fields: [userId], references: [id])
+  userId      String?               @db.ObjectId
+  zip         String?
+}
+
+model PollOption {
+  createdAt   DateTime  @default(now())
+  dateCreated DateTime?
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  polling     Polling?  @relation(fields: [pollingId], references: [id])
+  pollingId   String?   @db.ObjectId
+  polls       Poll[]
+  updatedAt   DateTime  @updatedAt
+}
+
+model Poll {
+  createdAt          DateTime    @default(now())
+  currency           String?
+  dateCreated        DateTime?
+  id                 String      @id @default(auto()) @map("_id") @db.ObjectId
+  packageDescription String?
+  packageName        String?
+  packageSize        Int?
+  pollOption         PollOption? @relation(fields: [pollOptionId], references: [id])
+  pollOptionId       String?     @db.ObjectId
+  updatedAt          DateTime    @updatedAt
+  voter              User?       @relation(fields: [votedPolls], references: [id])
+  votedPolls         String?     @db.ObjectId
+}
+
+model Media {
+  comment                   Comment?            @relation(fields: [commentId], references: [id])
+  commentId                 String?             @db.ObjectId
+  createdAt                 DateTime            @default(now())
+  dateCreated               DateTime?
+  duration                  String?
+  event                     Event?              @relation(fields: [eventId], references: [id])
+  eventId                   String?             @db.ObjectId
+  height                    Int?
+  id                        String              @id @default(auto()) @map("_id") @db.ObjectId
+  message                   Message?            @relation(fields: [messageId], references: [id])
+  messageId                 String?             @db.ObjectId
+  meta                      String?
+  metaType                  EnumMediaMetaType?
+  post                      Post?               @relation(fields: [postId], references: [id])
+  postId                    String?             @db.ObjectId
+  thumbnail                 String?
+  typeField                 EnumMediaTypeField?
+  updatedAt                 DateTime            @updatedAt
+  url                       String?
+  user                      User?               @relation(fields: [userId], references: [id])
+  userId                    String?             @db.ObjectId
+  voteEvent                 VoteEvent?          @relation(fields: [voteEventId], references: [id])
+  voteEventId               String?             @db.ObjectId
+  voteEventCandidate        VoteEventCandidate? @relation(name: "candidacyPhoto")
+  voteEventCandidateMedia   VoteEventCandidate? @relation(name: "media", fields: [voteEventCandidateMediaId], references: [id])
+  voteEventCandidateMediaId String?             @db.ObjectId
+  width                     Int?
+}
+
+model DeviceInfo {
+  appVersion     String?
+  createdAt      DateTime @default(now())
+  deviceLanguage String?
+  deviceMemory   String?
+  deviceModel    String?
+  deviceType     String?
+  deviceVersion  String?
+  expoToken      String?
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  updatedAt      DateTime @updatedAt
+  user           User?    @relation(fields: [userId], references: [id])
+  userId         String?  @db.ObjectId
+}
+
+model Message {
+  content          String?
+  createdAt        DateTime  @default(now())
+  id               String    @id @default(auto()) @map("_id") @db.ObjectId
+  isDeleted        Boolean?
+  isRead           Boolean?
+  isReceived       Boolean?
+  mediaItems       Media[]
+  receiver         User?     @relation(name: "receivedMessages", fields: [receivedMessages], references: [id])
+  receivedMessages String?   @db.ObjectId
+  sender           User?     @relation(name: "sender", fields: [sentMessages], references: [id])
+  sentMessages     String?   @db.ObjectId
+  timestamp        DateTime?
+  updatedAt        DateTime  @updatedAt
+}
+
+model Withdraw {
+  createdAt DateTime @default(now())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  updatedAt DateTime @updatedAt
+}
+
+model Transaction {
+  createdAt DateTime @default(now())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  updatedAt DateTime @updatedAt
+}
+
+model Notification {
+  actionRequired Boolean?
+  content        String?
+  createdAt      DateTime                  @default(now())
+  dateCreated    DateTime?
+  id             String                    @id @default(auto()) @map("_id") @db.ObjectId
+  isViewed       Boolean?
+  metaType       EnumNotificationMetaType?
+  updatedAt      DateTime                  @updatedAt
+  user           User?                     @relation(fields: [userId], references: [id])
+  userId         String?                   @db.ObjectId
+}
+
+model Like {
+  comment     Comment?           @relation(fields: [commentId], references: [id])
+  commentId   String?            @db.ObjectId
+  createdAt   DateTime           @default(now())
+  dateCreated DateTime?
+  id          String             @id @default(auto()) @map("_id") @db.ObjectId
+  meta        String?
+  post        Post?              @relation(fields: [postId], references: [id])
+  postId      String?            @db.ObjectId
+  typeField   EnumLikeTypeField?
+  updatedAt   DateTime           @updatedAt
+  user        User?              @relation(fields: [userId], references: [id])
+  userId      String?            @db.ObjectId
+}
+
+model Share {
+  comment     Comment?            @relation(fields: [commentId], references: [id])
+  commentId   String?             @db.ObjectId
+  createdAt   DateTime            @default(now())
+  dateCreated DateTime?
+  id          String              @id @default(auto()) @map("_id") @db.ObjectId
+  post        Post?               @relation(fields: [postId], references: [id])
+  postId      String?             @db.ObjectId
+  typeField   EnumShareTypeField?
+  updatedAt   DateTime            @updatedAt
+  user        User?               @relation(fields: [userId], references: [id])
+  userId      String?             @db.ObjectId
+}
+
+model Report {
+  comment     Comment?             @relation(fields: [commentId], references: [id])
+  commentId   String?              @db.ObjectId
+  createdAt   DateTime             @default(now())
+  dateCreated DateTime?
+  id          String               @id @default(auto()) @map("_id") @db.ObjectId
+  meta        String?
+  post        Post?                @relation(fields: [postId], references: [id])
+  postId      String?              @db.ObjectId
+  typeField   EnumReportTypeField?
+  updatedAt   DateTime             @updatedAt
+  user        User?                @relation(fields: [userId], references: [id])
+  userId      String?              @db.ObjectId
+}
+
+model VoteEvent {
+  accumulated         Int?
+  balance             Int?
+  createdAt           DateTime                     @default(now())
+  currency            String?
+  dateCreated         DateTime?
+  endDate             DateTime?
+  eventBio            String?
+  eventLink           String?
+  eventName           String?
+  eventPriceType      EnumVoteEventEventPriceType?
+  gallery             String?
+  id                  String                       @id @default(auto()) @map("_id") @db.ObjectId
+  isFeatured          Boolean?
+  isPrivate           Boolean?
+  mediaItems          Media[]
+  organizer           User?                        @relation(fields: [voteEvents], references: [id])
+  voteEvents          String?                      @db.ObjectId
+  startDate           DateTime?
+  ticketsSold         String?
+  updatedAt           DateTime                     @updatedAt
+  voteEventCandidates VoteEventCandidate[]
+  voteLimit           String?
+  votePrice           Int?
+  votesAvailable      Int?
+  votesPerUser        String?
+}
+
+model VoteEventCandidate {
+  candidacyPhoto     Media?     @relation(name: "candidacyPhoto", fields: [vi], references: [id])
+  vi                 String?    @unique @db.ObjectId
+  candidateBio       String?
+  candidateName      String?
+  candidateProfile   User?      @relation(fields: [candidateProfileId], references: [id])
+  candidateProfileId String?    @db.ObjectId
+  candidateUsername  String?
+  createdAt          DateTime   @default(now())
+  dateCreated        DateTime?
+  id                 String     @id @default(auto()) @map("_id") @db.ObjectId
+  media              Media[]    @relation(name: "media")
+  updatedAt          DateTime   @updatedAt
+  voteEvent          VoteEvent? @relation(fields: [voteEventId], references: [id])
+  voteEventId        String?    @db.ObjectId
+  votes              Vote?
+}
+
+model Vote {
+  candidate            String?
+  createdAt            DateTime            @default(now())
+  currency             String?
+  dateCreated          DateTime?
+  id                   String              @id @default(auto()) @map("_id") @db.ObjectId
+  paid                 Int?
+  quantity             Int?
+  updatedAt            DateTime            @updatedAt
+  voteEventCandidate   VoteEventCandidate? @relation(fields: [voteEventCandidateId], references: [id])
+  voteEventCandidateId String?             @unique @db.ObjectId
+  voter                User[]
+}
+
+model TicketCanvas {
+  canvasType  EnumTicketCanvasCanvasType?
+  createdAt   DateTime                    @default(now())
+  currency    String?
+  dateCreated DateTime?
+  id          String                      @id @default(auto()) @map("_id") @db.ObjectId
+  price       Float?
+  updatedAt   DateTime                    @updatedAt
+  user        User?                       @relation(fields: [userId], references: [id])
+  userId      String?                     @db.ObjectId
+}
+
+model TicketPackage {
+  createdAt          DateTime  @default(now())
+  currency           String?
+  dateCreated        DateTime?
+  event              Event?    @relation(fields: [eventId], references: [id])
+  eventId            String?   @db.ObjectId
+  id                 String    @id @default(auto()) @map("_id") @db.ObjectId
+  packageDescription String?
+  packageName        String?
+  packageSize        Int?
+  tickets            Ticket[]
+  updatedAt          DateTime  @updatedAt
+}
+
+enum EnumUserDevices {
+  Option1
+}
+
+enum EnumPollingTypeField {
+  Option1
+}
+
+enum EnumPostLinkedEventType {
+  Option1
+}
+
+enum EnumEventEventPriceType {
+  Option1
+}
+
+enum EnumEventEventType {
+  Option1
+}
+
+enum EnumCommentHashtags {
+  Option1
+}
+
+enum EnumCommentMetaType {
+  Option1
+}
+
+enum EnumLocationMetaType {
+  Option1
+}
+
+enum EnumMediaMetaType {
+  Option1
+}
+
+enum EnumMediaTypeField {
+  Option1
+}
+
+enum EnumNotificationMetaType {
+  Option1
+}
+
+enum EnumLikeTypeField {
+  Option1
+}
+
+enum EnumShareTypeField {
+  Option1
+}
+
+enum EnumReportTypeField {
+  Option1
+}
+
+enum EnumVoteEventEventPriceType {
+  Option1
+}
+
+enum EnumTicketCanvasCanvasType {
+  Option1
+}

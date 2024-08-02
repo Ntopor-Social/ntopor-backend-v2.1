@@ -1,0 +1,35 @@
+import { SortOrder } from "../../util/SortOrder";
+
+export type UserOrderByInput = {
+  accountVerification?: SortOrder;
+  bio?: SortOrder;
+  blocked?: SortOrder;
+  createdAt?: SortOrder;
+  dateCreated?: SortOrder;
+  devices?: SortOrder;
+  dob?: SortOrder;
+  email?: SortOrder;
+  enterpriseLocation?: SortOrder;
+  enterpriseName?: SortOrder;
+  eventVotesId?: SortOrder;
+  firstName?: SortOrder;
+  id?: SortOrder;
+  isAccountActive?: SortOrder;
+  isAdmin?: SortOrder;
+  isAppleAuth?: SortOrder;
+  isBlocked?: SortOrder;
+  isEmailVerified?: SortOrder;
+  isGoogleAuth?: SortOrder;
+  isPhoneVerified?: SortOrder;
+  isVerified?: SortOrder;
+  language?: SortOrder;
+  lastName?: SortOrder;
+  name?: SortOrder;
+  otp?: SortOrder;
+  password?: SortOrder;
+  passwordhash?: SortOrder;
+  phone?: SortOrder;
+  roles?: SortOrder;
+  updatedAt?: SortOrder;
+  username?: SortOrder;
+};
