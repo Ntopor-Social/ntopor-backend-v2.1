@@ -1,0 +1,36 @@
+import { Comment } from "../comment/Comment";
+import { Like } from "../like/Like";
+import { Location } from "../location/Location";
+import { Media } from "../media/Media";
+import { Polling } from "../polling/Polling";
+import { Report } from "../report/Report";
+import { Share } from "../share/Share";
+import { User } from "../user/User";
+
+export type Post = {
+  comments?: Array<Comment>;
+  createdAt: Date;
+  date: Date | null;
+  hashtags: string | null;
+  id: string;
+  isBlocked: boolean | null;
+  isEvent: boolean | null;
+  isMedia: boolean | null;
+  isPolling: boolean | null;
+  isPromoted: boolean | null;
+  isVoteEvent: boolean | null;
+  likes?: Array<Like>;
+  linkedEvent: string | null;
+  linkedEventType?: "Option1" | null;
+  location?: Location | null;
+  mediaItems?: Array<Media>;
+  mentioned: string | null;
+  pollings?: Array<Polling>;
+  postDescription: string | null;
+  postType: string | null;
+  reports?: Array<Report>;
+  shares?: Array<Share>;
+  tagged: string | null;
+  updatedAt: Date;
+  user?: User | null;
+};

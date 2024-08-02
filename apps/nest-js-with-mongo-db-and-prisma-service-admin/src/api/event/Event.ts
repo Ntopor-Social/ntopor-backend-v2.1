@@ -1,0 +1,34 @@
+import { Media } from "../media/Media";
+import { User } from "../user/User";
+import { TicketPackage } from "../ticketPackage/TicketPackage";
+import { Ticket } from "../ticket/Ticket";
+
+export type Event = {
+  accumulated: number | null;
+  balance: number | null;
+  createdAt: Date;
+  dateCreated: Date | null;
+  eventBio: string | null;
+  eventDate: Date | null;
+  eventLink: string | null;
+  eventLocation: string | null;
+  eventName: string | null;
+  eventPriceType?: "Option1" | null;
+  eventType?: "Option1" | null;
+  featuredImage: string | null;
+  galerry: string | null;
+  gallery: string | null;
+  id: string;
+  isActive: boolean | null;
+  isFeatured: boolean | null;
+  isPrivate: boolean | null;
+  isTicketAvailable: boolean | null;
+  mediaItems?: Array<Media>;
+  organizer?: User | null;
+  ticketAvailableCount: string | null;
+  ticketCount: string | null;
+  ticketPackages?: Array<TicketPackage>;
+  tickets?: Array<Ticket>;
+  ticketsSold: string | null;
+  updatedAt: Date;
+};

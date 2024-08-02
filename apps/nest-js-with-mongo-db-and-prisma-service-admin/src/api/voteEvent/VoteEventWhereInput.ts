@@ -1,0 +1,33 @@
+import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { MediaListRelationFilter } from "../media/MediaListRelationFilter";
+import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
+import { VoteEventCandidateListRelationFilter } from "../voteEventCandidate/VoteEventCandidateListRelationFilter";
+
+export type VoteEventWhereInput = {
+  accumulated?: IntNullableFilter;
+  balance?: IntNullableFilter;
+  currency?: StringNullableFilter;
+  dateCreated?: DateTimeNullableFilter;
+  endDate?: DateTimeNullableFilter;
+  eventBio?: StringNullableFilter;
+  eventLink?: StringNullableFilter;
+  eventName?: StringNullableFilter;
+  eventPriceType?: "Option1";
+  gallery?: StringNullableFilter;
+  id?: StringFilter;
+  isFeatured?: BooleanNullableFilter;
+  isPrivate?: BooleanNullableFilter;
+  mediaItems?: MediaListRelationFilter;
+  organizer?: UserWhereUniqueInput;
+  startDate?: DateTimeNullableFilter;
+  ticketsSold?: StringNullableFilter;
+  voteEventCandidates?: VoteEventCandidateListRelationFilter;
+  voteLimit?: StringNullableFilter;
+  votePrice?: IntNullableFilter;
+  votesAvailable?: IntNullableFilter;
+  votesPerUser?: StringNullableFilter;
+};

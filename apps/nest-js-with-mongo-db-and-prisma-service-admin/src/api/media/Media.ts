@@ -1,0 +1,30 @@
+import { Comment } from "../comment/Comment";
+import { Event } from "../event/Event";
+import { Message } from "../message/Message";
+import { Post } from "../post/Post";
+import { User } from "../user/User";
+import { VoteEvent } from "../voteEvent/VoteEvent";
+import { VoteEventCandidate } from "../voteEventCandidate/VoteEventCandidate";
+
+export type Media = {
+  comment?: Comment | null;
+  createdAt: Date;
+  dateCreated: Date | null;
+  duration: string | null;
+  event?: Event | null;
+  height: number | null;
+  id: string;
+  message?: Message | null;
+  meta: string | null;
+  metaType?: "Option1" | null;
+  post?: Post | null;
+  thumbnail: string | null;
+  typeField?: "Option1" | null;
+  updatedAt: Date;
+  url: string | null;
+  user?: User | null;
+  voteEvent?: VoteEvent | null;
+  voteEventCandidate?: VoteEventCandidate | null;
+  voteEventCandidateMedia?: VoteEventCandidate | null;
+  width: number | null;
+};

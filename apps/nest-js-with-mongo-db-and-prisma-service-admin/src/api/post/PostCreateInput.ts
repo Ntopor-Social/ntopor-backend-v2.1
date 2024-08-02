@@ -1,0 +1,33 @@
+import { CommentCreateNestedManyWithoutPostsInput } from "./CommentCreateNestedManyWithoutPostsInput";
+import { LikeCreateNestedManyWithoutPostsInput } from "./LikeCreateNestedManyWithoutPostsInput";
+import { LocationWhereUniqueInput } from "../location/LocationWhereUniqueInput";
+import { MediaCreateNestedManyWithoutPostsInput } from "./MediaCreateNestedManyWithoutPostsInput";
+import { PollingCreateNestedManyWithoutPostsInput } from "./PollingCreateNestedManyWithoutPostsInput";
+import { ReportCreateNestedManyWithoutPostsInput } from "./ReportCreateNestedManyWithoutPostsInput";
+import { ShareCreateNestedManyWithoutPostsInput } from "./ShareCreateNestedManyWithoutPostsInput";
+import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
+
+export type PostCreateInput = {
+  comments?: CommentCreateNestedManyWithoutPostsInput;
+  date?: Date | null;
+  hashtags?: string | null;
+  isBlocked?: boolean | null;
+  isEvent?: boolean | null;
+  isMedia?: boolean | null;
+  isPolling?: boolean | null;
+  isPromoted?: boolean | null;
+  isVoteEvent?: boolean | null;
+  likes?: LikeCreateNestedManyWithoutPostsInput;
+  linkedEvent?: string | null;
+  linkedEventType?: "Option1" | null;
+  location?: LocationWhereUniqueInput | null;
+  mediaItems?: MediaCreateNestedManyWithoutPostsInput;
+  mentioned?: string | null;
+  pollings?: PollingCreateNestedManyWithoutPostsInput;
+  postDescription?: string | null;
+  postType?: string | null;
+  reports?: ReportCreateNestedManyWithoutPostsInput;
+  shares?: ShareCreateNestedManyWithoutPostsInput;
+  tagged?: string | null;
+  user?: UserWhereUniqueInput | null;
+};

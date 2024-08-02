@@ -1,0 +1,32 @@
+import { CommentWhereUniqueInput } from "../comment/CommentWhereUniqueInput";
+import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { EventWhereUniqueInput } from "../event/EventWhereUniqueInput";
+import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { MessageWhereUniqueInput } from "../message/MessageWhereUniqueInput";
+import { PostWhereUniqueInput } from "../post/PostWhereUniqueInput";
+import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
+import { VoteEventWhereUniqueInput } from "../voteEvent/VoteEventWhereUniqueInput";
+import { VoteEventCandidateWhereUniqueInput } from "../voteEventCandidate/VoteEventCandidateWhereUniqueInput";
+
+export type MediaWhereInput = {
+  comment?: CommentWhereUniqueInput;
+  dateCreated?: DateTimeNullableFilter;
+  duration?: StringNullableFilter;
+  event?: EventWhereUniqueInput;
+  height?: IntNullableFilter;
+  id?: StringFilter;
+  message?: MessageWhereUniqueInput;
+  meta?: StringNullableFilter;
+  metaType?: "Option1";
+  post?: PostWhereUniqueInput;
+  thumbnail?: StringNullableFilter;
+  typeField?: "Option1";
+  url?: StringNullableFilter;
+  user?: UserWhereUniqueInput;
+  voteEvent?: VoteEventWhereUniqueInput;
+  voteEventCandidate?: VoteEventCandidateWhereUniqueInput;
+  voteEventCandidateMedia?: VoteEventCandidateWhereUniqueInput;
+  width?: IntNullableFilter;
+};

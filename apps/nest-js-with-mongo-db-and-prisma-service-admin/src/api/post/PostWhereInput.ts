@@ -1,0 +1,38 @@
+import { CommentListRelationFilter } from "../comment/CommentListRelationFilter";
+import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { LikeListRelationFilter } from "../like/LikeListRelationFilter";
+import { LocationWhereUniqueInput } from "../location/LocationWhereUniqueInput";
+import { MediaListRelationFilter } from "../media/MediaListRelationFilter";
+import { PollingListRelationFilter } from "../polling/PollingListRelationFilter";
+import { ReportListRelationFilter } from "../report/ReportListRelationFilter";
+import { ShareListRelationFilter } from "../share/ShareListRelationFilter";
+import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
+
+export type PostWhereInput = {
+  comments?: CommentListRelationFilter;
+  date?: DateTimeNullableFilter;
+  hashtags?: StringNullableFilter;
+  id?: StringFilter;
+  isBlocked?: BooleanNullableFilter;
+  isEvent?: BooleanNullableFilter;
+  isMedia?: BooleanNullableFilter;
+  isPolling?: BooleanNullableFilter;
+  isPromoted?: BooleanNullableFilter;
+  isVoteEvent?: BooleanNullableFilter;
+  likes?: LikeListRelationFilter;
+  linkedEvent?: StringNullableFilter;
+  linkedEventType?: "Option1";
+  location?: LocationWhereUniqueInput;
+  mediaItems?: MediaListRelationFilter;
+  mentioned?: StringNullableFilter;
+  pollings?: PollingListRelationFilter;
+  postDescription?: StringNullableFilter;
+  postType?: StringNullableFilter;
+  reports?: ReportListRelationFilter;
+  shares?: ShareListRelationFilter;
+  tagged?: StringNullableFilter;
+  user?: UserWhereUniqueInput;
+};

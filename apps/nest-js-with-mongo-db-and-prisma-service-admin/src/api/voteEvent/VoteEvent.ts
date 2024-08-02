@@ -1,0 +1,30 @@
+import { Media } from "../media/Media";
+import { User } from "../user/User";
+import { VoteEventCandidate } from "../voteEventCandidate/VoteEventCandidate";
+
+export type VoteEvent = {
+  accumulated: number | null;
+  balance: number | null;
+  createdAt: Date;
+  currency: string | null;
+  dateCreated: Date | null;
+  endDate: Date | null;
+  eventBio: string | null;
+  eventLink: string | null;
+  eventName: string | null;
+  eventPriceType?: "Option1" | null;
+  gallery: string | null;
+  id: string;
+  isFeatured: boolean | null;
+  isPrivate: boolean | null;
+  mediaItems?: Array<Media>;
+  organizer?: User | null;
+  startDate: Date | null;
+  ticketsSold: string | null;
+  updatedAt: Date;
+  voteEventCandidates?: Array<VoteEventCandidate>;
+  voteLimit: string | null;
+  votePrice: number | null;
+  votesAvailable: number | null;
+  votesPerUser: string | null;
+};

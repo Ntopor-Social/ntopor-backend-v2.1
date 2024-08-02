@@ -1,0 +1,37 @@
+import { FloatNullableFilter } from "../../util/FloatNullableFilter";
+import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { MediaListRelationFilter } from "../media/MediaListRelationFilter";
+import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
+import { TicketPackageListRelationFilter } from "../ticketPackage/TicketPackageListRelationFilter";
+import { TicketListRelationFilter } from "../ticket/TicketListRelationFilter";
+
+export type EventWhereInput = {
+  accumulated?: FloatNullableFilter;
+  balance?: FloatNullableFilter;
+  dateCreated?: DateTimeNullableFilter;
+  eventBio?: StringNullableFilter;
+  eventDate?: DateTimeNullableFilter;
+  eventLink?: StringNullableFilter;
+  eventLocation?: StringNullableFilter;
+  eventName?: StringNullableFilter;
+  eventPriceType?: "Option1";
+  eventType?: "Option1";
+  featuredImage?: StringNullableFilter;
+  galerry?: StringNullableFilter;
+  gallery?: StringNullableFilter;
+  id?: StringFilter;
+  isActive?: BooleanNullableFilter;
+  isFeatured?: BooleanNullableFilter;
+  isPrivate?: BooleanNullableFilter;
+  isTicketAvailable?: BooleanNullableFilter;
+  mediaItems?: MediaListRelationFilter;
+  organizer?: UserWhereUniqueInput;
+  ticketAvailableCount?: StringNullableFilter;
+  ticketCount?: StringNullableFilter;
+  ticketPackages?: TicketPackageListRelationFilter;
+  tickets?: TicketListRelationFilter;
+  ticketsSold?: StringNullableFilter;
+};
